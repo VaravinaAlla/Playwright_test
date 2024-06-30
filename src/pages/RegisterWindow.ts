@@ -38,7 +38,7 @@ export class RegisterWindow extends BasePage {
   get signupEmail() {
     return this._signupEmail;
   }
-  
+
   get signupPassword() {
     return this._signupPassword;
   }

@@ -6,12 +6,16 @@ import { RegisterWindow } from './RegisterWindow';
 export class HomePage extends BasePage {
   protected readonly _header: Locator;
   protected readonly _signInBtn: Locator;
+  protected readonly _guestLoginBtn: Locator;
   protected readonly _modalWindow: Locator;
   protected readonly _registrationBtn: Locator;
 
   constructor(page: Page) {
     super(page, '/');
     this._header = this._page.locator('.header');
+    this._guestLoginBtn = this._header.getByRole('button', {
+      name: 'Guest log in',
+    });
     this._signInBtn = this._header.getByRole('button', { name: 'Sign in' });
     this._modalWindow = this._page.locator('.modal-content');
     this._registrationBtn = this._modalWindow.getByRole('button', {
@@ -20,7 +24,7 @@ export class HomePage extends BasePage {
   }
 
   async loginAsGuest() {
-    await this._signInBtn.click();
+    await this._guestLoginBtn.click();
     return new GaragePage(this._page);
   }
 
