@@ -25,6 +25,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   //testIgnore: '**skip.spec.ts',
   //testMatch: '**spec.ts',
+ // globalSetup: 'global-setup.ts',
   outputDir: 'res',
 
   use: {
@@ -40,11 +41,25 @@ export default defineConfig({
     screenshot: 'only-on-failure',
   },
 
-  /* Configure projects for major browsers */
   projects: [
     {
+      name: 'login',
+      testDir: './tests/setup',
+      testMatch: 'login.setup.ts',
+      use: { ...devices['Desktop Chrome'] },
+    },
+
+    /* Configure projects for major browsers */
+    {
       name: 'qauto',
+      testDir: './tests/storage',
       testMatch: '**.spec.ts',
+      use: {
+        ...devices['Desktop Chrome'],
+     //   storageState: 'session-storage.json',
+      },
+
+      dependencies: ['login'],
     },
   ],
 

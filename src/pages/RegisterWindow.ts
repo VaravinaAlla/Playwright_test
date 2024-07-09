@@ -27,6 +27,15 @@ export class RegisterWindow extends BasePage {
     this._errorMsg = this._modalWindowRegister.locator('.invalid-feedback');
   }
 
+  async login(firsName: string, lastName: string, email: string, password: string, repeatPass: string,) {
+    await this._signupFirsName.fill(firsName);
+    await this._signupLastName.fill(lastName);
+    await this._signupEmail.fill(email);
+    await this._signupPassword.fill(password);
+    await this._signupRepeatPassword.fill(repeatPass);
+    await this._registerBtn.click();
+  }
+
   get signupFistName() {
     return this._signupFirsName;
   }
