@@ -12,12 +12,13 @@ test.describe('Registration modal validation', async () => {
     await homePage.navigate();
     registerWindow = await homePage.singhUp();
     garagePage = new GaragePage(page);
+    
   });
 
   test('The registration is successful', async () => {
     await registerWindow.signupFistName.fill('Jhon');
     await registerWindow.signupLastName.fill('Martin');
-    await registerWindow.signupEmail.fill('aqa-test262@testy.com');
+    await registerWindow.signupEmail.fill('aqa-test258@testy.com');
     await registerWindow.signupPassword.fill('zDfgyri^7!@');
     await registerWindow.signupRepeatPassword.fill('zDfgyri^7!@');
     await registerWindow.registerBtn.click();
@@ -26,18 +27,17 @@ test.describe('Registration modal validation', async () => {
     await expect(garagePage.addCarBtn).toBeVisible();
   });
 
-  test.only("The registration isn't successful with Name more that 20 characters", async () => {
+  test("The registration isn't successful with Name more that 20 characters", async () => {
+   
     await registerWindow.signupFistName.fill('somenamethatlongertwenty');
     await registerWindow.signupFistName.blur();
     await expect
-      .soft(
-        registerWindow.errorMsg,
-        'Error "Name has to be from 2 to 20 characters" is shown'
-      )
+      .soft(registerWindow.errorMsg, 'Error "Name has to be from 2 to 20 characters" is shown')
       .toHaveText('Name has to be from 2 to 20 characters long');
   });
 
   test("The registration isn't successful with LastName is digital", async () => {
+   
     await registerWindow.signupLastName.fill('45465689');
     await registerWindow.signupLastName.blur();
     await expect
@@ -52,6 +52,7 @@ test.describe('Registration modal validation', async () => {
   });
 
   test("The registration isn't successful with empty Email", async () => {
+  
     await registerWindow.signupEmail.fill('');
     await registerWindow.signupEmail.blur();
     await expect
@@ -83,6 +84,7 @@ test.describe('Registration modal validation', async () => {
   });
 
   test("The registration isn't successful with password doesn't match", async () => {
+    
     await registerWindow.signupFistName.fill('Jhon');
     await registerWindow.signupLastName.fill('Martin');
     await registerWindow.signupEmail.fill('aqa-test789@testy.com');
