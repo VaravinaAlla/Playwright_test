@@ -12,11 +12,13 @@ export class GaragePage extends BasePage {
   private readonly _mileageInput: Locator;
   private readonly _addBtn: Locator;
   private readonly _carItem: Locator;
+  private readonly _myProfile: Locator;
   private readonly _sideBar: SideBarComponent;
 
   constructor(page: Page) {
     super(page, '/panel/garage');
     this._profile = page.locator('.app-content');
+    this._myProfile = page.getByRole('link', { name: 'Profile' });
     this._title = this._profile.locator('h1');
     this._addCarBtn = page.getByRole('button', { name: 'Add car' });
     this._addCarModal = page.locator('app-add-car-modal');
@@ -49,6 +51,10 @@ export class GaragePage extends BasePage {
 
   get title() {
     return this._title;
+  }
+
+  get myProfile() {
+    return this._myProfile;
   }
 
   get addCarBtn() {

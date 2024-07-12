@@ -40,6 +40,7 @@ export class HomePage extends BasePage {
   async loginAsUser(login: string, pass: string) {
     await this._signInBtn.click();
     await this._sighInPopUp.login(login, pass);
+    return new GaragePage(this._page);
   }
 
   get header() {
