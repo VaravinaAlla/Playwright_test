@@ -25,10 +25,11 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   //testIgnore: '**skip.spec.ts',
   //testMatch: '**spec.ts',
- // globalSetup: 'global-setup.ts',
+  // globalSetup: 'global-setup.ts',
   outputDir: 'res',
 
   use: {
+    headless: false,
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: process.env.BASE_URL,
     httpCredentials: {
@@ -48,20 +49,30 @@ export default defineConfig({
       testMatch: 'login.setup.ts',
       use: { ...devices['Desktop Chrome'] },
     },
+    {
+      name: 'api-tests',
+      use: { ...devices['Desktop Chrome'] },
+      testMatch: '*api-test/*.spec.ts'
 
-    /* Configure projects for major browsers */
+    },
+    {
+      name: 'ui/api',
+      testDir: './tests/testMocked',
+      testMatch: '**.spec.ts',
+      use: {...devices['Desktop Chrome'] },
+    },
     {
       name: 'qauto',
       testDir: './tests/storage',
       testMatch: '**.spec.ts',
       use: {
         ...devices['Desktop Chrome'],
-     //   storageState: 'session-storage.json',
+        //   storageState: 'session-storage.json',
       },
-
-      dependencies: ['login'],
+      //  dependencies: ['login'],
     },
   ],
+
 
   /* projects: [
     {
