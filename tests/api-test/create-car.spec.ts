@@ -1,11 +1,13 @@
 import test, { expect } from '@playwright/test';
 import { users } from '../../test-data/credential';
+import createAPICookies from '../../utils/api/cookies/createAPIAuthCookies';
+import generateHeaderWithCookies from '../../utils/generateHeaderWithCookies';
 
 test.describe('API TESTS with auth in BeforeAll', () => {
-  let sid: string;
+  let authHeader;
 
   test.beforeAll(async ({ request }) => {
-    const authRequest = await request.post('/api/auth/signin', {
+    /*const authRequest = await request.post('/api/auth/signin', {
       data: {
         email: users.mainUser.email,
         password: users.mainUser.password,
@@ -22,34 +24,34 @@ test.describe('API TESTS with auth in BeforeAll', () => {
           break;
         }
       }
-    }
+    }*/
+    authHeader = await generateHeaderWithCookies(
+      users.mainUser.email,
+      users.mainUser.password
+    );
   });
 
   test('/create cars positive', async ({ request }) => {
     const response = await request.post('/api/cars/', {
-      headers: {
-        Cookie: `sid=${sid}`,
-      },
+      headers: authHeader,
       data: {
         carBrandId: 1,
         carModelId: 1,
-        mileage: 122,
+        mileage: 1263,
       },
     });
     const body = await response.json();
     test.expect(body.status).toBe('ok');
     test.expect(body.data.brand).toBe('Audi');
     test.expect(body.data.model).toBe('TT');
-    test.expect(body.data.mileage).toBe(122);
+    test.expect(body.data.mileage).toBe(1263);
   });
 
   test('/create cars negative with carBrabdId is String', async ({
     request,
   }) => {
     const response = await request.post('/api/cars/', {
-      headers: {
-        Cookie: `sid=${sid}`,
-      },
+      headers: authHeader,
       data: {
         carBrandId: 'Audi',
         carModelId: 1,
@@ -65,9 +67,7 @@ test.describe('API TESTS with auth in BeforeAll', () => {
     request,
   }) => {
     const response = await request.post('/api/cars/', {
-      headers: {
-        Cookie: `sid=${sid}`,
-      },
+      headers: authHeader,
       data: {
         carBrandId: 2,
         carModelId: 35,
