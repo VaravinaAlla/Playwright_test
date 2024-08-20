@@ -29,7 +29,7 @@ export default defineConfig({
   outputDir: 'res',
 
   use: {
-    headless: false,
+    headless: true,
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: process.env.BASE_URL,
     httpCredentials: {
