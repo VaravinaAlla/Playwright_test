@@ -1,9 +1,7 @@
 import { userGaragePageTest as test } from '../../fixtures/userGaragePage';
 import { HomePage } from '../../src/pages/HomePage';
 import { GaragePage } from '../../src/pages/GaragePage';
-
-const USER = process.env.APP_USER_EMAIL!;
-const PASS = process.env.APP_USER_PASS!;
+import { users } from '../../test-data/credential';
 
 test.describe('check storage', () => {
   let garagePage: GaragePage;
@@ -11,7 +9,10 @@ test.describe('check storage', () => {
   test.beforeEach(async ({ page }) => {
     const homePage = new HomePage(page);
     await homePage.navigate();
-    garagePage = await homePage.loginAsUser(USER, PASS);
+    garagePage = await homePage.loginAsUser(
+      users.mainUser.email,
+      users.mainUser.password
+    );
     garagePage.myProfile.click();
   });
 

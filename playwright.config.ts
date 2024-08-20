@@ -52,14 +52,19 @@ export default defineConfig({
     {
       name: 'api-tests',
       use: { ...devices['Desktop Chrome'] },
-      testMatch: '*api-test/*.spec.ts'
-
+      testMatch: '*api-test/*.spec.ts',
     },
     {
       name: 'ui/api',
       testDir: './tests/testMocked',
       testMatch: '**.spec.ts',
-      use: {...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'] },
+      dependencies: ['api-precondition'],
+    },
+    {
+      name: 'api-precondition',
+      use: { ...devices['Desktop Chrome'] },
+      testMatch: '*precondition/*.spec.ts',
     },
     {
       name: 'qauto',
@@ -72,7 +77,6 @@ export default defineConfig({
       //  dependencies: ['login'],
     },
   ],
-
 
   /* projects: [
     {
