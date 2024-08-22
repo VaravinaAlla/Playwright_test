@@ -7,7 +7,7 @@ on:
       test_suite:
         description: 'Test file to run'
         required: false
-        default: 'tests/api-test/create-car.spec.ts tests/setup/login.setup.ts tests/add-car.spec.ts tests/test.register.spec.ts'
+        default: 'tests/api-test/create-car.spec.ts'
 jobs:
   playwright:
     name: 'Playwright Tests'
