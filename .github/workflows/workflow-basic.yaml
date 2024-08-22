@@ -7,7 +7,7 @@ on:
       test_suite:
         description: 'Test file to run'
         required: false
-        default: ' '
+        default: 'tests/api-test/create-car.spec.ts tests/setup/login.setup.ts tests/add-car.spec.ts tests/test.register.spec.ts'
 jobs:
   playwright:
     name: 'Playwright Tests'
@@ -22,7 +22,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run your tests
-        run: npx playwright test ${{ tests/api-test/create-car.spec.ts tests/setup/login.setup.ts tests/add-car.spec.ts tests/test.register.spec.ts }}
+        run: |
+          if [ "${{ inputs.test_suite }}" != "" ]; then
+            npx playwright test ${{ inputs.test_suite }}
+          else
+            npx playwright test
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
