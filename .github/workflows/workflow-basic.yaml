@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run your tests
-        run: npx playwright test ${{ tests/api-test tests/setup add-car.spec.ts test.register.spec.ts }}
+        run: npx playwright test ${{ tests/api-test/create-car.spec.ts tests/setup/login.setup.ts tests/add-car.spec.ts tests/test.register.spec.ts }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
