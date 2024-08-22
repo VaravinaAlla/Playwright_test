@@ -7,13 +7,13 @@ on:
       test_suite:
         description: 'Test file to run'
         required: false
-        default: 'tests/api-test/create-car.spec.ts'
+        default: ' '
 jobs:
   playwright:
     name: 'Playwright Tests'
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.46.0-jammy
+      image: mcr.microsoft.com/playwright:v1.44.0-jammy
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -22,12 +22,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run your tests
-        run: |
-          if [ "${{ inputs.test_suite }}" != "" ]; then
-            npx playwright test ${{ inputs.test_suite }}
-          else
-            npx playwright test
-          fi
+        run: npx playwright test ${{ inputs.test_suite }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
